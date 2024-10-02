@@ -11,17 +11,19 @@ library(tidyverse)
 library(arrow)
 library(gtsummary)
 ```
+
 # Objective: identify a cohort of hospitalizations from CLIF tables
 
 Identify patients admitted to the hospital in a given date range. Export a list of `hospitalization_id` and filtered CLIF tables for the identified hospitalizations.
 
-An example project for this cohort would be would be included for surveillance of sepsis events based on the CDC Adult Sepsis Event criteria. 
+An example project for this cohort would be would be included for surveillance of sepsis events based on the CDC Adult Sepsis Event criteria.
 
 # Specify inpatient cohort parameters
 
 ## Date range
 
 Specify the start and end dates for the cohort
+
 ```{r}
 start_date <- "2020-01-01"
 end_date <- "2021-12-31"
@@ -31,10 +33,12 @@ end_date <- "2021-12-31"
 ## Inclusion and exclusion criteria
 
 Currently adult vs. all patients and whether or not to include patients who died in the ER are supported as options
+
 ```{r}
 include_pediatric <- FALSE
 include_er_deaths <- TRUE
 ```
+
 TO DO: develop these criteria further
 
 # Specify required CLIF tables
@@ -57,17 +61,16 @@ true_tables <- c("patient", "hospitalization", "vitals", "labs",
 table_flags <- setNames(tables %in% true_tables, tables)
 ```
 
-
 # Load the required CLIF tables into memory and return an error if a required table is missing
 
 ## Specify CLIF table location in your repository
+
 ```{r}
 tables_location <- 'CLIF_tables'
 table_path <- here(tables_location)
 file_type <- "parquet"
 cohort_path <- here("study_cohort")
 ```
-
 
 ```{r}
 # List all CLIF files in the directory
@@ -113,7 +116,6 @@ for (i in seq_along(required_filenames)) {
 }
 ```
 
-
 # Identify hospital admissions for the specified date range with at least one `location_category` of `c("Ward", "ICU")`
 
 ```{r}
@@ -137,7 +139,8 @@ cohort_hospitalization_ids <- clif_hospitalization_filtered %>%
   pull(hospitalization_id)
 ```
 
-## Identify patients who died in the ER and include if specified 
+## Identify patients who died in the ER and include if specified
+
 ```{r}
 if (include_er_deaths) {
 # identify hospitalization_ids with only ER location_category
@@ -157,11 +160,13 @@ cohort_hospitalization_ids <- union(cohort_hospitalization_ids, ER_death_ids)
 ```
 
 ## Export the list of `hospitalization_id` for the identified patients
+
 ```{r}
 save(cohort_hospitalization_ids, file = here(paste0(cohort_path, "/cohort_hospitalization_ids.RData")))
 ```
 
 ## Filter the CLIF tables for the identified hospitalizations
+
 ```{r}
 filter_clif_table <- function(table, filter_col, cohort_ids, select_cols = NULL) {
   filtered_table <- table %>%
@@ -200,19 +205,20 @@ cohort_patient_ids <- clif_hospitalization_cohort %>%
 clif_patient_cohort <- filter_clif_table(clif_patient, "patient_id", cohort_patient_ids)
 ```
 
-TO DO: 
+TO DO:
 
-* drop unecessary fields or observations in this step as well, e.g. filter `labs` down to only the labs that are relevant for the sepsis surveillance project.
-* convert to a shiny app
+-   drop unecessary fields or observations in this step as well, e.g. filter `labs` down to only the labs that are relevant for the sepsis surveillance project.
+-   convert to a shiny app
 
 ## Save all filtered tables to the `study_cohort` folder
+
 ```{r}
-# q: I want to save all the filter tables in one Rdata file
 save(list = ls(pattern = "clif_.*_cohort"), 
      file = here(paste0(cohort_path, "/clif_cohort_tables.RData")))
 ```
 
 # Create a table 1 of patient demographics for the cohort
+
 ```{r}
 admits_per_patient <- clif_hospitalization_cohort %>%
   group_by(patient_id) %>%
@@ -231,11 +237,13 @@ table_one_patient
 ```
 
 # Create table 1 of hospitalization level data for the cohort
+
 ```{r}
 ever_icu <- clif_adt_cohort %>%
   filter(location_category == "ICU") %>%
   select(hospitalization_id) %>%
-  mutate(ever_icu = 1)
+  mutate(ever_icu = 1) %>%
+  unique()
 
 table_one_hospitalization <- clif_hospitalization_cohort %>%
   mutate(length_of_stay = as.numeric(as.Date(discharge_dttm) - as.Date(admission_dttm), units = "days")) %>%
@@ -254,5 +262,3 @@ table_one_hospitalization |>
   as_gt() |> 
   gt::gtsave(filename = here(paste0(cohort_path, "/table_one_hospitalization.pdf")))
 ```
-
-

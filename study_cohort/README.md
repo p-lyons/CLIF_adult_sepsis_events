@@ -1,0 +1,1 @@
+Store filtered study cohort CLIF tables as .RData here

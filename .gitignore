@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
-*.RData
+
 .Ruserdata
 .DS_Store
 *.Rproj
@@ -9,3 +9,9 @@
 CLIF_*.parquet
 CLIF_*.csv
 CLIF_*.fst
+
+# ignore filtered CLIF tables stored as Rdata
+*.RData
+
+# ignore reports
+*.pdf
