@@ -54,8 +54,10 @@ tables <- c("patient", "hospitalization", "vitals", "labs",
             "therapy_details", "microbiology_culture", "sensitivity", "microbiology_nonculture")
 
 # Tables that should be set to TRUE for this project
-true_tables <- c("patient", "hospitalization", "vitals", "labs", 
-                 "microbiology_culture", "medication_admin_continuous", "adt", "respiratory_support")
+true_tables <- c("patient", "hospitalization", "adt",
+                 "microbiology_culture",  "medication_admin_intermittent",
+                 "vitals", "labs", "medication_admin_continuous", "respiratory_support"
+                  )
 
 # Create a named vector and set the boolean values
 table_flags <- setNames(tables %in% true_tables, tables)

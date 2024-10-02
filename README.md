@@ -8,13 +8,19 @@ Identify adult sepsis events using the [CDC Adult Sepsis Event Toolkit](https://
 
 Please refer to the online [CLIF data dictionary](https://clif-consortium.github.io/website/data-dictionary.html), [ETL tools](https://github.com/clif-consortium/CLIF/tree/main/etl-to-clif-resources), and specific [table contacts](https://github.com/clif-consortium/CLIF) for more information on constructing the required tables and fields.
 
-1. **`patient`**
-3. **`hospitalization`**
-4. **`vitals`**
-5. **`labs`**
-6. **`microbiology`**
-7. **`medication_admin_continuous`**
-8. **`respiratory_support`**
+### To identify hospitalizations:
+- **`patient`**
+- **`hospitalization`**
+
+### To identify presumed infection
+-  **`microbiology_culture`**
+-  **`microbiology_antibiotic`**
+
+### To identify organ dysfunction
+- **`labs`**
+- **`vitals`**
+- **`medication_admin_continuous`**
+- **`respiratory_support`**
 
 ## Dependencies
 
