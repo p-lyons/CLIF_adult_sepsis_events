@@ -3,6 +3,9 @@
 *.RData
 .Ruserdata
 .DS_Store
+*.Rproj
 
 #ignore source CLIF_ files 
-CLIF_*
+CLIF_*.parquet
+CLIF_*.csv
+CLIF_*.fst
