@@ -2,7 +2,7 @@
 
 ## Objective
 
-Identify adult sepsis events using the [CDC Adult Sepsis Event Toolkit](https://www.cdc.gov/nhsn/pdfs/ps-analysis-resources/sepsis/sepsis-event-protocol-current.pdf) criteria using the Common Longitudinal Intensive Format (CLIF) 2.0 data structure. 
+Identify adult sepsis events using the [CDC Adult Sepsis Event Toolkit](https://www.cdc.gov/sepsis/pdfs/sepsis-surveillance-toolkit-mar-2018_508.pdf) criteria using the Common Longitudinal Intensive Format (CLIF) 2.0 data structure. 
 
 ## Required CLIF tables and fields
 1. **`patient`**

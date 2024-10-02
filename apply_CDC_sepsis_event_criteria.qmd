@@ -1,0 +1,42 @@
+---
+title: "Apply CDC Sepsis Event Criteria"
+format: html
+editor: visual
+---
+
+https://www.cdc.gov/sepsis/pdfs/sepsis-surveillance-toolkit-mar-2018_508.pdf
+
+# Load in CLIF tables for cohort
+
+```{r}
+cohort_path <- here("study_cohort")
+```
+
+
+```{r}
+load(here(paste0(cohort_path, "/clif_cohort_tables.RData")))
+```
+
+# ASE: Adult Sepsis Event
+
+(Must include the 2 components of criteria A **AND** include one or more organ dysfunction listed among B criteria)
+
+### A. Presumed Infection (presence of both 1 and 2):
+
+1. **Blood culture obtained** (irrespective of the result), **AND**
+2. **At least 4 Qualifying Antimicrobial Days (QAD)** – starting within the time period 2 calendar days before and after the collection date of a blood culture. See below.
+
+**AND**
+
+### B. Organ Dysfunction (at least 1 of the following criteria met within the time period 2 calendar days before and after the collection date of a blood culture):
+
+1. **Initiation of a new vasopressor infusion** (norepinephrine, dopamine, epinephrine, phenylephrine, OR vasopressin). To count as a new vasopressor, that specific vasopressor cannot have been administered in the prior calendar day. See Appendix B.
+2. **Initiation of invasive mechanical ventilation** (must be greater than 1 calendar day between mechanical ventilation episodes). Invasive mechanical ventilation can be identified by:
+   - ICD-10 Procedure Codes: 5A1935Z, 5A1945Z, 5A1955Z
+   - CPT codes: 94002, 94003, 94004, 94656, 94657
+   - Other clinical records.
+3. **Doubling of serum creatinine** OR decrease by ≥50% of estimated glomerular filtration rate (eGFR) relative to baseline (see below), excluding patients with ICD-10 code for end-stage renal disease (N18.6). (If eGFR values are not readily available, creatinine alone can be used to determine renal dysfunction).
+4. **Total bilirubin ≥ 2.0 mg/dL** and increase by 100% from baseline (see below).
+5. **Platelet count <100 cells/μL** AND ≥50% decline from baseline (see below) – baseline must be ≥100 cells/μL.
+6. **Optional**: Serum lactate ≥ 2.0 mmol/L. Note that serum lactate has become an increasingly common test to measure tissue perfusion. When serum lactate is included in the surveillance definition, the likely effect will be to slightly increase the number of sepsis cases identified. However, if serum lactate ordering practices are not stable over time in a particular hospital, this will bias the incidence of sepsis. For this reason, serum lactate was not used in the primary analysis of sepsis trends over time in the original study by Rhee et al.
+
