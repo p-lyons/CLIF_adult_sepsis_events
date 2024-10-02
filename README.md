@@ -13,8 +13,8 @@ Please refer to the online [CLIF data dictionary](https://clif-consortium.github
 - **`hospitalization`**
 
 ### To identify presumed infection
--  **`microbiology_culture`**
--  **`microbiology_antibiotic`**
+-  **`microbiology_culture`** for blood culture collection
+-  **`medication_admin_intermittent`** for qualifying antibiotic days
 
 ### To identify organ dysfunction
 - **`labs`**
