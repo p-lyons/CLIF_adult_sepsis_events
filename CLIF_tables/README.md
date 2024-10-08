@@ -1,1 +1,0 @@
-Include your CLIF tables in this sub-folder in parquet, csv, or fst format for the `cohort_identification.qmd` script to run
