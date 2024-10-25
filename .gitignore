@@ -5,7 +5,7 @@
 .DS_Store
 *.Rproj
 
-#ignore source CLIF_ files 
+#ignore source CLIF_ files
 CLIF_*.parquet
 CLIF_*.csv
 CLIF_*.fst
@@ -15,3 +15,6 @@ CLIF_*.fst
 
 # ignore reports
 *.pdf
+
+# ignore smb tempfiles
+._*
